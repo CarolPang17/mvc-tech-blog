@@ -15,11 +15,12 @@ Post.init(
       primaryKey: true,
       autoIncrement: true,
     },
-          // set title rule
+    // set title rule
     title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    // set post text rule
     post_text: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -27,6 +28,7 @@ Post.init(
         len: [1],
       },
     },
+    //set user id rule
     user_id: {
       type: DataTypes.INTEGER,
       references: {
