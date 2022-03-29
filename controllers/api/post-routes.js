@@ -1,134 +1,133 @@
-// connect express router to server
-const router = require("express").Router();
+const router = require('express').Router();
+const sequelize = require('../../config/connection');
+const { Post, User, Comment } = require('../../models');
+const withAuth = require('../../utils/auth');
 
-// link Sequelize database
-const sequelize = require("../../config/connection");
-// require other Models
-const { User, Post, Comment } = require("../../models");
-// Authorization Helper
-const withAuth = require("../../utils/auth");
-
-// Get all posts
-router.get("/", (req, res) => {
+// get all users
+router.get('/', (req, res) => {
+  console.log('======================');
   Post.findAll({
-    attributes: ["id", "post_text", "title", "created_at"],
-    // set posts order from most recent to least
-    order: [["created_at", "DESC"]],
-    // including the post creator's user name from the User table , also all comments from the Comment table
+    attributes: [
+      'id',
+      'post_url',
+      'title',
+      'created_at',
+    ],
     include: [
       {
-        model: User,
-        attributes: ["username"],
-      },
-      {
         model: Comment,
-        attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
+        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
         include: {
           model: User,
-          attributes: ["username"],
-        },
+          attributes: ['username']
+        }
       },
-    ],
+      {
+        model: User,
+        attributes: ['username']
+      }
+    ]
   })
-    // return posts
-    .then((dbPostData) => res.json(dbPostData))
-    // if error, return error
-    .catch((err) => {
+    .then(dbPostData => res.json(dbPostData))
+    .catch(err => {
       console.log(err);
       res.status(500).json(err);
     });
 });
 
-// GET get a single post by post's id
-router.get("/:id", (req, res) => {
+router.get('/:id', (req, res) => {
   Post.findOne({
     where: {
-      // get id by req
-      id: req.params.id,
+      id: req.params.id
     },
-    // configuration:
-    attributes: ["id", "post_text", "title", "created_at"],
-    // including the post creator's user name from the User table , also comment from the Comment table
+    attributes: [
+      'id',
+      'post_url',
+      'title',
+      'created_at',
+    ],
     include: [
       {
-        model: User,
-        attributes: ["username"],
-      },
-      {
         model: Comment,
-        attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
+        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
         include: {
           model: User,
-          attributes: ["username"],
-        },
+          attributes: ['username']
+        }
       },
-    ],
+      {
+        model: User,
+        attributes: ['username']
+      }
+    ]
   })
-    .then((dbPostData) => {
-      // if no such post id, return an error
+    .then(dbPostData => {
       if (!dbPostData) {
-        res.status(404).json({ message: "No post found with this id" });
+        res.status(404).json({ message: 'No post found with this id' });
         return;
       }
       res.json(dbPostData);
     })
-    .catch((err) => {
-      // if error , return error
+    .catch(err => {
       console.log(err);
       res.status(500).json(err);
     });
 });
 
-// create a new post
-router.post("/", withAuth, (req, res) => {
-  // expects object of the form {title: 'Some Post Title ', post_text: 'Some Post text body', user_id: 1}
+router.post('/', withAuth, (req, res) => {
+  // expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
   Post.create({
     title: req.body.title,
-    post_text: req.body.post_text,
-    user_id: req.session.user_id,
+    post_url: req.body.post_url,
+    user_id: req.session.user_id
   })
-    .then((dbPostData) => res.json(dbPostData))
-    .catch((err) => {
+    .then(dbPostData => res.json(dbPostData))
+    .catch(err => {
       console.log(err);
       res.status(500).json(err);
     });
 });
 
-// PUT api/posts/1-- update a post's title or text
-router.put("/:id", withAuth, (req, res) => {
-  Post.update(req.body, {
-    where: {
-      id: req.params.id,
+
+router.put('/:id', withAuth, (req, res) => {
+  Post.update(
+    {
+      title: req.body.title
     },
-  })
-    .then((dbPostData) => {
+    {
+      where: {
+        id: req.params.id
+      }
+    }
+  )
+    .then(dbPostData => {
       if (!dbPostData) {
-        res.status(404).json({ message: "No post found with this id" });
+        res.status(404).json({ message: 'No post found with this id' });
         return;
       }
       res.json(dbPostData);
     })
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
       res.status(500).json(err);
     });
 });
 
-// Delete a post
-router.delete("/:id", withAuth, (req, res) => {
+router.delete('/:id', withAuth, (req, res) => {
+  console.log('id', req.params.id);
   Post.destroy({
     where: {
-      id: req.params.id,
-    },
+      id: req.params.id
+    }
   })
-    .then((dbPostData) => {
+    .then(dbPostData => {
       if (!dbPostData) {
-        res.status(404).json({ message: "No post found with this id" });
+        res.status(404).json({ message: 'No post found with this id' });
         return;
       }
       res.json(dbPostData);
     })
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
       res.status(500).json(err);
     });

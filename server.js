@@ -1,34 +1,39 @@
-// Server for MVC Tech Blog
-
-// Dependencies
-// set path
 const path = require('path');
-// set Express.js
 const express = require('express');
-// Set routes , by getting it from controllers folder
-const routes = require('./controllers/');
-// Set Sequelize
-const sequelize = require('./config/connection');
-// use dotenv to hide configuration information
-require('dotenv').config();
-// Express session to handle session cookies
+const session = require('express-session');
+const exphbs = require('express-handlebars');
 
-// Initialize the server
 const app = express();
-// Set the port location
 const PORT = process.env.PORT || 3001;
 
-// strintify data by Express parse JSON
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const sequelize = require("./config/connection");
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
-// Tell the app to use Express Session for the session handling
+const sess = {
+  secret: 'Super secret secret',
+  cookie: {},
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize
+  })
+};
+
 app.use(session(sess));
 
-// set server to go through the routes
-app.use(routes);
+const helpers = require('./utils/helpers');
 
-// listen to the server also link sequelize
+const hbs = exphbs.create({ helpers });
+
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(require('./controllers/'));
+
 sequelize.sync({ force: false }).then(() => {
-    app.listen(PORT, () => console.log('Now listening'));
-  });
+  app.listen(PORT, () => console.log('Now listening'));
+});

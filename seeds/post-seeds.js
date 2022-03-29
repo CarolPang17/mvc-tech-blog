@@ -1,49 +1,109 @@
 const { Post } = require('../models');
 
-const postData = [
+const postdata = [
   {
-    title: 'Laborum esse non aliqua ',
-    post_text: 'Labore non tempor pariatur ullamco laborum nisi enim reprehenderit eiusmod irure laborum. Ut Lorem duis ex tempor consequat. Nulla sunt cillum magna non anim sit mollit consectetur tempor. Sunt adipisicing deserunt ea non commodo amet Lorem magna culpa est aliquip ex. Eiusmod dolor enim commodo ut reprehenderit commodo aliqua excepteur amet irure.',
-    user_id: 3,
+    title: 'Donec posuere metus vitae ipsum.',
+    post_url: 'https://buzzfeed.com/in/imperdiet/et/commodo/vulputate.png',
+    user_id: 10
   },
   {
-    title: 'Proident incididunt ipsum ullamco et exercitation laboris est aliqua commodo.',
-    post_text: 'Mollit exercitation est eu nisi quis commodo eiusmod. Esse labore in adipisicing ad exercitation minim id mollit aliquip proident. Anim commodo occaecat Lorem consequat mollit.',
-    user_id: 2,
+    title: 'Morbi non quam nec dui luctus rutrum.',
+    post_url: 'https://nasa.gov/donec.json',
+    user_id: 8
   },
   {
-    title: 'Reprehenderit eiusmod qui ea ullamco ipsum reprehenderit incididunt.',
-    post_text: 'Cupidatat fugiat ipsum do veniam qui aliqua laborum quis elit. Sit culpa eu sint occaecat sint ut consequat dolore et in voluptate est incididunt aute. Nisi eu velit nisi culpa cillum. Minim aliquip labore velit irure laborum irure voluptate magna. In commodo eiusmod sunt quis cillum reprehenderit elit labore sint reprehenderit ex. Ut elit excepteur ullamco tempor consectetur. Minim reprehenderit anim et dolore deserunt eu.',
-    user_id: 5,
+    title: 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue.',
+    post_url: 'https://europa.eu/parturient/montes/nascetur/ridiculus/mus/etiam/vel.aspx',
+    user_id: 1
   },
   {
-    title: 'Proident nostrud reprehenderit.',
-    post_text: 'Ad mollit labore labore exercitation ipsum nulla Lorem. Laborum mollit amet reprehenderit exercitation enim cupidatat. Fugiat do minim laboris duis do enim tempor qui ad quis sit velit. Esse aliqua sit amet adipisicing nostrud in enim.',
-    user_id: 1,
+    title: 'Nunc purus.',
+    post_url: 'http://desdev.cn/enim/blandit/mi.jpg',
+    user_id: 4
   },
   {
-    title: 'Ipsum et id quis.',
-    post_text: 'Ex ex ipsum minim nostrud ullamco. Labore deserunt excepteur elit duis mollit cupidatat ea id nostrud in laborum anim. Voluptate excepteur amet nisi magna ea nulla eiusmod sint ad dolor sunt sint culpa culpa. Ipsum ad aliqua exercitation duis. Sint esse ad non laboris exercitation. Sunt consectetur est quis incididunt officia deserunt ad id officia qui anim. Deserunt duis exercitation laboris enim ea ex.',
-    user_id: 4,
+    title: 'Pellentesque eget nunc.',
+    post_url: 'http://google.ca/nam/nulla/integer.aspx',
+    user_id: 7
   },
   {
-    title: 'Minim adipisicing culpa consectetur ut commodo excepteur.',
-    post_text: 'Do nisi elit laboris do est amet ipsum. Irure anim consequat proident et velit ut aute quis reprehenderit proident ipsum ea. Anim enim labore irure officia labore ipsum magna. Est ad non ullamco laboris sunt tempor consectetur consectetur id eu quis labore consectetur. Elit veniam officia ut velit consectetur cillum excepteur ipsum culpa laborum duis mollit ex incididunt.',
-    user_id: 5,
+    title: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
+    post_url: 'https://stanford.edu/consequat.png',
+    user_id: 4
   },
   {
-    title: 'Adipisicing culpa non consectetur duis velit aliqua.',
-    post_text: 'Ullamco non veniam aute nostrud. Officia dolore pariatur ut pariatur Lorem duis laboris labore aute pariatur voluptate. Laborum aute occaecat consequat amet ex laboris exercitation. Lorem aliquip mollit proident laborum sint magna aliqua elit proident. Nulla do sunt et occaecat magna quis sunt ad et occaecat consequat magna ad.',
-    user_id: 6,
+    title: 'In hac habitasse platea dictumst.',
+    post_url: 'http://edublogs.org/non/ligula/pellentesque.js',
+    user_id: 1
   },
   {
-    title: 'Nostrud labore dolor eu ipsum non.',
-    post_text: 'Est occaecat consectetur deserunt labore minim irure eiusmod reprehenderit laboris. Ex consequat voluptate deserunt deserunt est enim pariatur. Excepteur in magna ex velit in aliqua fugiat amet officia. Quis tempor mollit culpa quis esse ad exercitation. Excepteur adipisicing nulla labore consectetur Lorem sint fugiat labore. In ad reprehenderit amet et sunt. Deserunt minim commodo irure in excepteur amet.',
-    user_id: 7,
+    title: 'Morbi non quam nec dui luctus rutrum.',
+    post_url: 'http://ucla.edu/consequat/nulla.html',
+    user_id: 1
   },
+  {
+    title: 'Duis ac nibh.',
+    post_url: 'http://theguardian.com/dui/vel/nisl/duis/ac/nibh.aspx',
+    user_id: 9
+  },
+  {
+    title: 'Curabitur at ipsum ac tellus semper interdum.',
+    post_url: 'https://reverbnation.com/ligula/sit.jpg',
+    user_id: 5
+  },
+  {
+    title: 'In hac habitasse platea dictumst.',
+    post_url: 'http://china.com.cn/lectus/vestibulum.json',
+    user_id: 3
+  },
+  {
+    title: 'Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo.',
+    post_url: 'http://networksolutions.com/nam/ultrices/libero/non/mattis/pulvinar.json',
+    user_id: 10
+  },
+  {
+    title: 'Donec dapibus.',
+    post_url: 'https://instagram.com/ac/neque/duis/bibendum/morbi/non.xml',
+    user_id: 8
+  },
+  {
+    title: 'Nulla tellus.',
+    post_url: 'https://lycos.com/natoque/penatibus/et.html',
+    user_id: 3
+  },
+  {
+    title: 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo.',
+    post_url: 'https://gmpg.org/lorem.jpg',
+    user_id: 3
+  },
+  {
+    title:
+      'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam.',
+    post_url: 'https://paginegialle.it/mattis/egestas.jsp',
+    user_id: 7
+  },
+  {
+    title: 'In hac habitasse platea dictumst.',
+    post_url: 'http://wikia.com/turpis/eget.jpg',
+    user_id: 6
+  },
+  {
+    title: 'Etiam justo.',
+    post_url: 'https://shareasale.com/quis.json',
+    user_id: 4
+  },
+  {
+    title: 'Nulla ut erat id mauris vulputate elementum.',
+    post_url: 'http://java.com/diam/neque/vestibulum/eget/vulputate/ut/ultrices.png',
+    user_id: 6
+  },
+  {
+    title: 'Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.',
+    post_url: 'https://java.com/at/nibh/in.png',
+    user_id: 7
+  }
+];
 
-]
-
-const seedPosts = () => Post.bulkCreate(postData);
+const seedPosts = () => Post.bulkCreate(postdata);
 
 module.exports = seedPosts;
