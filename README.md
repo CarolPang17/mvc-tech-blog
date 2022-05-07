@@ -1,6 +1,6 @@
 # mvc-tech-blog
 
-heroku url: https://warm-escarpment-73201.herokuapp.com/Links 
+heroku url: https://warm-escarpment-73201.herokuapp.com
 
 ## Description
 User Story <br>
